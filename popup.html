@@ -1,0 +1,26 @@
+<html>
+<head>
+	<style>
+		body{width:450px;text-align:center;}
+		#text{font-size:60px;margin-top:80px;height:200px;font-weight:bold;}
+		#delay_disp{text-align:left;}
+		#ldelay_disp{text-align:left;}
+		#delay{float:left;width:75%;}
+		#letterdelay{float:left;width:75%;}
+		#seek{float:left;width:75%;}
+		#seek_disp{text-align:left;}
+		.clr{clear:both;text-align:left;font-weight:bold;}
+	</style>
+  <script src="popup.js"></script>
+</head>
+<body >
+	<input id="seek" type="range" min="0" max="500" value="0" step="1" />
+	<span id="seek_disp">:</span>
+<div id="text">Select some text and try again!<small><small><small><small><small><small><br>If it doesn't work refresh the page.</small></small></small></small></small></small></div>
+<div class="clr">delay</div>
+	<input id="delay" type="range" min="0" max="500" value="25" step="1" />
+	<span id="delay_disp"></span>
+<div class="clr">per letter delay</div>
+	<input id="letterdelay" type="range" min="0" max="500" value="25" step="1" />
+	<span id="ldelay_disp"></span>
+	</body></html>
