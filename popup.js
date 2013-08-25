@@ -8,6 +8,8 @@ var randomColors=typeof(localStorage['randomColors'])!='undefined'?((localStorag
 var delay=typeof(localStorage['delay'])!='undefined'?localStorage['delay']:55;
 var clearfor=typeof(localStorage['clearfor'])!='undefined'?localStorage['clearfor']:10;
 var perletterdelay=typeof(localStorage['perletterdelay'])!='undefined'?localStorage['perletterdelay']:10;
+var staticWpmSample=typeof(localStorage['staticWpmSample'])!='undefined'?((localStorage["staticWpmSample"]=='true')?true:false):false;
+var calcSampleTxt=typeof(localStorage['calcSampleTxt'])!='undefined'?localStorage['calcSampleTxt']:'To continue with the default action, save a reference to the original pushState function, and then call it';
 var running=false,updateseek=true;
 
 var tb=false,sk=false,del=false,ldel=false,skd=false;;
@@ -27,16 +29,21 @@ function iin(){
 			tabid=tab.id;  			
 			chrome.tabs.sendRequest(tabid,{getSel:true},function(r){
 				cw=0;
-				words=r.t.split(/\s+/g);
+				words=parseWords(r.t);
 				totalcharlen=words.join('').length;
 				countwords=words.length;
 				if(countwords > 1 ){
 					sk.max=countwords-1;
 					nw();
+				}else{
+					recomputeWpm();//computes based on sample text
 				}
 			});
 		})
 	})
+}
+function parseWords(paragraph){
+	return paragraph.split(/\s+/g);
 }
 function nw(){
 	running=true;
@@ -77,9 +84,24 @@ function cls(){
 }
 function ut(){
 	var ts=(delay*countwords)+(perletterdelay*totalcharlen);
-	//var cs=delay*cw;
-	
 	skd.innerHTML=secondsToHms(ts/1000);
+	recomputeWpm();
+}
+function recomputeWpm(){
+	var cntWrd=countwords;
+	var totChr=totalcharlen;
+	var calcQualifier = '';
+	if( staticWpmSample || cntWrd < 2 ){
+		var wrds=parseWords(calcSampleTxt);
+		cntWrd = wrds.length;
+		totChr = wrds.join('').length;
+		if(perletterdelay > 0)calcQualifier='~';
+	}
+	//var clearTime = clearfor * cntWrd;//clear time does not count inside caluclation
+	var wordTime = delay * cntWrd;
+	var letterTime = perletterdelay * totChr;
+	var wpm = cntWrd / (((wordTime + letterTime) / 1000) /60);
+	document.getElementById('wpm').innerHTML = calcQualifier+Math.round(wpm);
 }
 function secondsToHms(d) {
 	d = Number(d);

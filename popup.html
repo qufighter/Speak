@@ -14,13 +14,16 @@
   <script src="popup.js"></script>
 </head>
 <body >
+<div>
 	<input id="seek" type="range" min="0" max="500" value="0" step="1" />
 	<span id="seek_disp">:</span>
+	<div title="Since the number of letters-per-word always varies ~ will appear when the WPM calculation is an estimate.  Computation text can be set in options.  By default; select some text for the accurate WPM for that block of text"><span id="wpm"></span>wpm</div>
+</div>
 <div id="text">Select some text and try again!<small><small><small><small><small><small><br>If it doesn't work refresh the page.</small></small></small></small></small></small></div>
-<div class="clr">delay</div>
+<div class="clr">per word delay</div>
 	<input id="delay" type="range" min="0" max="500" value="25" step="1" />
 	<span id="delay_disp"></span>
 <div class="clr">per letter delay</div>
 	<input id="letterdelay" type="range" min="0" max="500" value="25" step="1" />
 	<span id="ldelay_disp"></span>
-	</body></html>
+</body></html>

@@ -18,6 +18,8 @@ pOptions["randomColors"]={def:false,ind:0,name:'Colorize Text'};
 pOptions["delay"]={def:55,ind:0,name:'ms Delay Between Words'};
 pOptions["clearfor"]={def:10,ind:1,name:'ms Clear Screen Duration'};
 pOptions["perletterdelay"]={def:10,ind:1,name:'ms Delay per each letter'};
+pOptions["staticWpmSample"]={def:false,ind:0,name:'Always Use Static WPM Calculation Text'};
+pOptions["calcSampleTxt"]={def:'To continue with the default action, save a reference to the original pushState function, and then call it',ind:1,name:'WPM Computation Text'};
 //pOptions["previewOnPage"]={def:false,ind:0,name:'On page zoomed preview'};
 
 // Saves options to localStorage.
@@ -140,7 +142,7 @@ function init(){
 			var l=document.createElement('label');
 			var cb=document.createElement('input');
 			cb.setAttribute('type','text');
-			cb.setAttribute('id',i);cb.setAttribute('size',(pOptions[i].def + '').length);
+			cb.setAttribute('id',i);cb.setAttribute('size',Math.min(10,(pOptions[i].def + '').length));
 			if(pOptions[i].ind>0)l.appendChild(document.createTextNode('\u00a0\u00a0\u00a0\u00a0'));
 			l.appendChild(cb);
 			l.appendChild(document.createTextNode(pOptions[i].name));
