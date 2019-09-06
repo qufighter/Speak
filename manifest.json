@@ -9,7 +9,7 @@
 	  },
 	 "content_scripts": [ {
       "js": [ "read.user.js" ],
-      "matches": [ "*://*/*" ]
+      "matches": [ "<all_urls>" ]
    } ],
    "options_page": "options.html",
    "icons": { "16": "icon16.png",
@@ -18,7 +18,7 @@
            "64": "icon64.png",
           "128": "icon128.png" },
    "permissions": [
-				  "http://vidzbigger.com/","tabs"
-				],
+      "tabs", "storage", "<all_urls>"
+    ],
    "version": "0.0.1.3"
 }
