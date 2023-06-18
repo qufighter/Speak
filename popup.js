@@ -14,6 +14,22 @@ var running=false,updateseek=true;
 
 var tb=false,sk=false,del=false,ldel=false,skd=false;;
 var t1,t2;
+var activation_attempts = 0;
+function activate_tab(){
+	if( activation_attempts > 0 ) {
+		console.log("serial speed reader extension alredy activated the content script and will not try again until you trigger the popup again...")
+		return;
+	}
+	activation_attempts++;
+	chrome.tabs.executeScript(tabid, {file: "read.user.js"}, function(){
+		if(chrome.runtime.lastError){
+			console.log(chrome.runtime.lastError.message);
+			return;
+		}
+		setTimeout(iin, 250);
+	});
+}
+
 function iin(){
 	tb=	document.getElementById('text');
 	sk= document.getElementById('seek');
@@ -28,6 +44,11 @@ function iin(){
 		chrome.tabs.getSelected(window.id, function(tab){
 			tabid=tab.id;  			
 			chrome.tabs.sendRequest(tabid,{getSel:true},function(r){
+				if(chrome.runtime.lastError){
+					console.log("serial speed reader extension is activating the content script and will be active soon...")
+					activate_tab();
+					return;
+				}
 				cw=0;
 				words=parseWords(r.t);
 				totalcharlen=words.join('').length;
