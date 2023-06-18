@@ -18,7 +18,7 @@
            "64": "icon64.png",
           "128": "icon128.png" },
    "permissions": [
-      "tabs", "storage", "<all_urls>"
+      "tabs", "<all_urls>"
     ],
-   "version": "0.0.1.4"
+   "version": "0.0.1.5"
 }
